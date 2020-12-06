@@ -13,6 +13,8 @@ namespace WeatherAPI.Test.Integration
             Response.EnsureSuccessStatusCode();
             
             Assert.That((int)Response.StatusCode, Is.EqualTo(200));
+            Assert.That(await Response.Content.ReadAsStringAsync(), Is.Not.EqualTo("city not found"));
+            Assert.That(await Response.Content.ReadAsStringAsync(), Is.Not.Contains("Invalid API key."));
         }
     }
 }

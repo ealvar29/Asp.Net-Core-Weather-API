@@ -11,6 +11,13 @@ namespace Weather_API.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWeatherService _weatherService;
+
+        public HomeController(IWeatherService weatherService)
+        {
+            _weatherService = weatherService;
+        }
+        
         public IActionResult Index()
         {
             return View();
@@ -19,7 +26,8 @@ namespace Weather_API.Controllers
         [HttpGet ("/weather/{country}")]
         public IActionResult Get(string country)
         {
-            return Ok();
+           var weather = _weatherService.GetWeatherForLocation(country);
+           return Ok(weather);
         }
 
         public IActionResult Privacy()
